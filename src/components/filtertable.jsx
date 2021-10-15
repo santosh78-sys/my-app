@@ -1,24 +1,18 @@
 import { useState } from 'react';
 import csvjson from './csvjson.json';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
-import player from '../player'
+import ReactDOM from 'react-dom';
+import Styles from './styles.module.css';
+import Player from '../Player'
 
 const Searchtable = () => {
     const [searchTerm, setsearchTerm] = useState("");
     const route = (q) => {
-        let p = '/player/'+q;
-        window.location.href = p;
+        ReactDOM.render(
+            <Player id={q}/>,
+        document.getElementById('root'));
     }
 
     return (
-        <Router>  
         <div className="container">
             <input 
             type="text" 
@@ -28,6 +22,7 @@ const Searchtable = () => {
             onChange ={(e)=>{
                setsearchTerm(e.target.value); 
             }}
+
             />
 
             <table className="table table-bordered">
@@ -38,12 +33,7 @@ const Searchtable = () => {
                         <th>Age</th>
                         <th>Nationality</th>
                         <th>Overall</th>
-                        <th>Potential</th>
-                        <th>Club</th>
-                        <th>Value</th>
-                        <th>Wage</th>
-                        <th>preferred Foot</th>
-
+                      
                     </tr>
                     </thead>
                      <tbody>
@@ -61,17 +51,12 @@ const Searchtable = () => {
                     }).map((m) => (
                     
                     <tr key={m.ID} onClick={()=>route(m.ID)}>
-                    <td>{m.ID}</td>
-                    <td>{m.Age}</td>
-                    <td>{m.Photo}</td>
-                    <td>{m.Flag}</td>
-                    <td>{m.Nationality}</td>
-                    <td>{m.Nationality}</td>
-                    <td>{m.Nationality}</td>
-                    <td>{m.Nationality}</td>
-                    <td>{m.Nationality}</td>
-                    <td>{m.Nationality}</td>
-
+                  <td className = {Styles.cr7}>{m.ID}</td>
+                  <td className = {Styles.cr7}>{m.Age}</td>
+                  <td className = {Styles.cr7}>{m.Photo}</td>
+                  <td className = {Styles.cr7}>{m.Flag}</td>
+                  <td className = {Styles.cr7}>{m.Club}</td>
+               
                     </tr>     
                       ))
                     
@@ -79,12 +64,7 @@ const Searchtable = () => {
                    
             </table>
              </div>
-             <Switch>
-                <Route path="/player">
-                    <player />
-                </Route>
-            </Switch>
-        </Router>
+
     );
 }
  
